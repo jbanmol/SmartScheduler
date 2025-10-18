@@ -1,0 +1,5 @@
+{
+  "name": "AI Task Calendar",
+  "description": "An intelligent, customizable calendar application where you can describe your tasks in natural language, and the AI will organize them into a daily schedule for you.",
+  "requestFramePermissions": []
+}
