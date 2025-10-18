@@ -67,7 +67,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, onSave, o
       aria-modal="true"
     >
       <div 
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 sm:p-8 transform transition-transform duration-300 scale-100" 
+        className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-4 sm:p-6 transform transition-transform duration-300 scale-100 max-h-[90vh] overflow-y-auto" 
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">

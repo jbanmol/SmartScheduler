@@ -26,7 +26,7 @@ export const TaskInput: React.FC<TaskInputProps> = ({ onGenerate, isLoading }) =
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder={placeholderText}
-          className="w-full h-48 p-3 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-200 dark:placeholder-gray-400 transition-shadow flex-grow resize-none"
+          className="w-full h-32 sm:h-48 p-3 bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-200 dark:placeholder-gray-400 transition-shadow flex-grow resize-none"
           disabled={isLoading}
         />
         <button

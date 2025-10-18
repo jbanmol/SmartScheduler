@@ -9,10 +9,10 @@ export const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
   return (
     <header className="flex items-center justify-between">
       <div className="text-left">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-white tracking-tight">
+        <h1 className="text-2xl sm:text-4xl font-bold text-gray-800 dark:text-white tracking-tight">
           AI Task Calendar
         </h1>
-        <p className="mt-2 text-md text-gray-600 dark:text-gray-400 max-w-2xl">
+        <p className="mt-1 sm:mt-2 text-sm sm:text-md text-gray-600 dark:text-gray-400 max-w-2xl">
           Describe your schedule. Let AI organize it.
         </p>
       </div>
