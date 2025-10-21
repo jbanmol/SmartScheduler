@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Calendar } from './components/Calendar';
 import { TaskInput } from './components/TaskInput';
 import { TaskModal } from './components/TaskModal';
+import { ConfirmationModal } from './components/ConfirmationModal';
 import { generateTasksFromPrompt } from './services/geminiService';
 import { Task } from './types';
 import { Header } from './components/Header';
@@ -36,6 +37,9 @@ const App: React.FC = () => {
 
   const [popoverTask, setPopoverTask] = useState<Task | null>(null);
   const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
+
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
 
   // --- EFFECTS ---
   useEffect(() => {
@@ -147,11 +151,27 @@ const App: React.FC = () => {
     handleCloseModal();
   };
 
-  const handleDeleteTask = (taskId: string) => {
-    if (window.confirm('Are you sure you want to delete this task?')) {
-      setTasks(tasks.filter(t => t.id !== taskId));
-      handleCloseModal();
+  const handleRequestDelete = (taskId: string) => {
+    setTaskToDelete(taskId);
+    setIsConfirmModalOpen(true);
+    // If the popover for this task is open, close it
+    if (popoverTask?.id === taskId) {
+        handleClosePopover();
     }
+  };
+
+  const handleConfirmDelete = () => {
+    if (taskToDelete) {
+      setTasks(tasks.filter(t => t.id !== taskToDelete));
+      handleCloseModal(); // This is safe to call even if modal isn't open for the deleted task
+    }
+    setIsConfirmModalOpen(false);
+    setTaskToDelete(null);
+  };
+  
+  const handleCancelDelete = () => {
+    setIsConfirmModalOpen(false);
+    setTaskToDelete(null);
   };
 
 
@@ -183,7 +203,7 @@ const App: React.FC = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           onSave={handleSaveTask}
-          onDelete={handleDeleteTask}
+          onRequestDelete={handleRequestDelete}
           task={selectedTask}
           date={modalDate}
         />
@@ -194,6 +214,16 @@ const App: React.FC = () => {
             position={popoverPosition}
             onClose={handleClosePopover}
             onEdit={handleEditFromPopover}
+            onDelete={handleRequestDelete}
+        />
+      )}
+      {isConfirmModalOpen && (
+          <ConfirmationModal
+            isOpen={isConfirmModalOpen}
+            onClose={handleCancelDelete}
+            onConfirm={handleConfirmDelete}
+            title="Delete Task"
+            message="Are you sure you want to permanently delete this task? This action cannot be undone."
         />
       )}
     </div>

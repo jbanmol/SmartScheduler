@@ -5,7 +5,7 @@ interface TaskModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (task: Omit<Task, 'id'> & { id?: string }) => void;
-  onDelete: (taskId: string) => void;
+  onRequestDelete: (taskId: string) => void;
   task: Task | null;
   date: Date | null;
 }
@@ -21,7 +21,7 @@ const colorClasses: Record<Task['color'], string> = {
     pink:   'bg-pink-500',
 };
 
-export const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, onSave, onDelete, task, date }) => {
+export const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, onSave, onRequestDelete, task, date }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [taskDate, setTaskDate] = useState('');
@@ -103,7 +103,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({ isOpen, onClose, onSave, o
           </div>
           <div className="mt-8 flex items-center justify-end space-x-4">
              {task && (
-              <button type="button" onClick={() => onDelete(task.id)} className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/50 rounded-md transition-colors uppercase tracking-wider">
+              <button type="button" onClick={() => onRequestDelete(task.id)} className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/50 rounded-md transition-colors uppercase tracking-wider">
                 Delete
               </button>
             )}

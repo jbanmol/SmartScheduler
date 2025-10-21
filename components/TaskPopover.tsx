@@ -6,6 +6,7 @@ interface TaskPopoverProps {
   position: { top: number; left: number };
   onClose: () => void;
   onEdit: (task: Task) => void;
+  onDelete: (taskId: string) => void;
 }
 
 const colorClasses: Record<Task['color'], string> = {
@@ -18,7 +19,7 @@ const colorClasses: Record<Task['color'], string> = {
     pink:   'bg-pink-500',
 };
 
-export const TaskPopover: React.FC<TaskPopoverProps> = ({ task, position, onClose, onEdit }) => {
+export const TaskPopover: React.FC<TaskPopoverProps> = ({ task, position, onClose, onEdit, onDelete }) => {
   return (
     <div 
       className="fixed inset-0 z-40" 
@@ -49,7 +50,13 @@ export const TaskPopover: React.FC<TaskPopoverProps> = ({ task, position, onClos
           </button>
         </div>
         
-        <div className="mt-4 flex justify-end">
+        <div className="mt-4 flex justify-end items-center space-x-4">
+            <button
+                onClick={() => onDelete(task.id)}
+                className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/50 rounded-md transition-colors uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800"
+            >
+                Delete
+            </button>
             <button 
                 onClick={() => onEdit(task)} 
                 className="px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-900/50 rounded-md transition-colors uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
